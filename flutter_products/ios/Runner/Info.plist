@@ -22,6 +22,10 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access to upload photos needed to allow for photos to be used in auto-completion of entries</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access take photos needed to allow for photos to be used in auto-completion of entries</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

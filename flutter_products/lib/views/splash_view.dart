@@ -48,14 +48,19 @@ class _SplashViewState extends State<SplashView> {
         Navigator.pushReplacementNamed(context, '/login');
       } else {
         //print(encodedSessJson);
-        final response =
-            await supabase.auth.recoverSession(encodedSessJson); //session);
+        try {
+          final response =
+              await supabase.auth.recoverSession(encodedSessJson); //session);
 
-        sharedPreferences.setString('user', response.session!.user.toString());
-        var encodedJson = jsonEncode(response.session!);
-        await sharedPreferences.setString(PERSIST_SESSION_KEY, encodedJson);
+          sharedPreferences.setString(
+              'user', response.session!.user.toString());
+          var encodedJson = jsonEncode(response.session!);
+          await sharedPreferences.setString(PERSIST_SESSION_KEY, encodedJson);
 
-        Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/home');
+        } on Exception catch (_, e) {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
       }
     } else {
       Navigator.pushReplacementNamed(context, '/login');

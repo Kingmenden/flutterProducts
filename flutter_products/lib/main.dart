@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_products/src/settings/settings_view.dart';
+import 'package:flutter_products/views/add_product_view.dart';
 import 'package:get_it/get_it.dart';
 import 'src/app.dart';
 import 'src/components/theme_manager.dart';
@@ -22,15 +24,12 @@ import 'package:flutter_products/views/splash_view.dart';
 
 import 'src/sample_feature/sample_item_details_view.dart';
 import 'src/sample_feature/sample_item_list_view.dart';
+import 'views/my_items_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GetIt locator = GetIt.instance;
-  locator.registerSingleton<SupabaseClient>(SupabaseClient('', ''));
-  await Supabase.initialize(
-    url: '',
-    anonKey: '',
-  );
+
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   //final settingsController = SettingsController(SettingsService());
@@ -87,6 +86,9 @@ class _MyAppState extends State<MyApp> {
         '/login': (_) => const LoginView(),
         '/register': (_) => const RegisterView(),
         '/home': (_) => const HomeView(),
+        '/myItems': (_) => const MyItemsView(),
+        '/addProduct': (_) => const AddProductView(),
+        '/settings': (_) => const SettingsView(),
       },
       // Providing a restorationScopeId allows the Navigator built by the
       // MaterialApp to restore the navigation stack when a user leaves and
