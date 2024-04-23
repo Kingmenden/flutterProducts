@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -33,9 +34,11 @@ class _AddProductViewState extends State<AddProductView> {
   late ITextRecognizer _recognizer;
   RecognitionResponse? _response;
   bool enterManually = false;
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
+  final _productNameController = TextEditingController();
+  final _buyAmountController = TextEditingController();
+  final _buyDateController = TextEditingController();
+  final _buyLocationController = TextEditingController();
+  final _serialController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -171,41 +174,41 @@ class _AddProductViewState extends State<AddProductView> {
                             const SizedBox(
                               height: 10,
                             ),
-                            //Email Input
+                            //Product Name Input
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: TextFormField(
-                                controller: _emailController,
+                                controller: _productNameController,
                                 cursorColor: Colors.black,
                                 style: const TextStyle(),
                                 decoration: const InputDecoration(
-                                  labelText: 'E-mail',
+                                  labelText: 'Product',
                                   labelStyle: TextStyle(color: Colors.black),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                 ),
-                                validator: (String? value) {
-                                  if (value!.isEmpty || !value.contains('@')) {
-                                    return 'Invalid e-mail';
-                                  }
-                                },
+                                //validator: (String? value) {
+                                //  if (value!.isEmpty || !value.contains('@')) {
+                                //    return 'Invalid e-mail';
+                                //  }
+                                //},
                               ),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            //Name Input
+                            //Buy Location Input
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: TextFormField(
-                                controller: _nameController,
+                                controller: _buyLocationController,
                                 cursorColor: Colors.black,
                                 style: const TextStyle(),
                                 decoration: const InputDecoration(
-                                  labelText: 'Name',
+                                  labelText: 'Location Bought',
                                   labelStyle: TextStyle(color: Colors.black),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black),
@@ -216,58 +219,73 @@ class _AddProductViewState extends State<AddProductView> {
                             const SizedBox(
                               height: 10,
                             ),
-                            //Password Input
+                            //Serial Input
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: TextFormField(
-                                controller: _passwordController,
+                                controller: _serialController,
                                 cursorColor: Colors.black,
-                                obscureText: true,
+                                //obscureText: true,
                                 style: const TextStyle(),
                                 decoration: const InputDecoration(
-                                  labelText: 'Password',
+                                  labelText: 'Serial number',
                                   labelStyle: TextStyle(color: Colors.black),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                 ),
-                                validator: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Invalid password';
-                                  }
-                                },
+                                //validator: (String? value) {
+                                //  if (value!.isEmpty) {
+                                //    return 'Invalid password';
+                                //  }
+                                //},
                               ),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            //Confirm Password Input
+                            //Buy Date Input
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: TextFormField(
+                                controller: _buyDateController,
                                 cursorColor: Colors.black,
-                                obscureText: true,
                                 style: const TextStyle(),
                                 decoration: const InputDecoration(
-                                  labelText: 'Confirm Password',
+                                  labelText: 'Date Bought',
                                   labelStyle: TextStyle(color: Colors.black),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black),
                                   ),
                                 ),
-                                validator: (String? value) {
-                                  if (value!.isEmpty ||
-                                      value != _passwordController.text) {
-                                    return 'Passwords don\'t match';
-                                  }
-                                },
                               ),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
+                            //Buy Amount Input
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: TextFormField(
+                                controller: _buyAmountController,
+                                cursorColor: Colors.black,
+                                style: const TextStyle(),
+                                decoration: const InputDecoration(
+                                  labelText: 'Item Price',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            //Submit product to DB
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -281,32 +299,13 @@ class _AddProductViewState extends State<AddProductView> {
                                 },
                                 color: Colors.black,
                                 child: const Text(
-                                  'Register',
+                                  'Submit Product',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),
                             const SizedBox(
                               height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text('Already have an account?'),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text(
-                                    'Login',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                )
-                              ],
                             ),
                           ],
                         ),
@@ -441,5 +440,13 @@ class _AddProductViewState extends State<AddProductView> {
       _response =
           RecognitionResponse(imgPath: imgPath, recognizedText: recognizedText);
     });
+  }
+
+  Future addProduct() async {
+    if (_productNameController.text != '') {}
+    if (_buyAmountController.text != '') {}
+    if (_buyDateController.text != '') {}
+    if (_buyLocationController.text != '') {}
+    if (_serialController.text != '') {}
   }
 }

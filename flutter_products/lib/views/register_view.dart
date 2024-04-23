@@ -247,12 +247,12 @@ class _RegisterViewState extends State<RegisterView> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // retorna um objeto do tipo Dialog
+        // return an object tip Dialog
         return AlertDialog(
           title: Text(title ?? ''),
           content: Text(message ?? ''),
           actions: <Widget>[
-            // define os botões na base do dialogo
+            // define button on the bottom of Dialog
             MaterialButton(
               child: const Text("Close"),
               onPressed: () {
